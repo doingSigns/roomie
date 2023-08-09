@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">RoomieMatch</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">About</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Contact</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div class="jumbotron">
+  <h1 class="display-4">Find Your Perfect Roommate!</h1>
+  <p class="lead">Join RoomieMatch and connect with potential roommates who share your interests and preferences.</p>
+  <a class="btn btn-primary btn-lg" href="#" role="button">Get Started</a>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <h2>What is RoomieMatch?</h2>
+      <p>RoomieMatch is a platform that helps university students find their ideal roommates. Whether you're looking for someone who shares your study habits or enjoys the same hobbies, RoomieMatch makes roommate selection easy and stress-free.</p>
+      <p>Our matching algorithm ensures that you're connected with students who align with your preferences, course, and interests. Say goodbye to mismatched roommates and hello to harmonious living arrangements!</p>
+    </div>
+    <div class="col-md-6">
+        <h2>Sign Up as a Student</h2>
+        {% if form.errors %}
+        <div class="alert alert-danger"> 
+            <strong>Oops!</strong> Please correct the following errors:
+            <ul>
+                {% for field in form %} 
+                {% for error in field.errors %} 
+                <li>{{ error }}</li> 
+                {% endfor %} 
+                {% endfor %} 
+            </ul> 
+        </div> 
+        {% endif %}
+
+        <form method="post" action="{% url 'web:signup' %}">
+            {% csrf_token %}
+
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" name="email" placeholder="Enter your university email">
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" name="password" placeholder="Choose a password">
+          </div>
+          <div class="form-group">
+            <label for="first_name">First Name</label>
+            <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Your first name">
+          </div>
+          <div class="form-group">
+            <label for="last_name">Last Name</label>
+            <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Your last name">
+          </div>
+          <div class="form-group">
+            <label for="department">Department</label>
+            <input type="text" class="form-control" id="department" name="department" placeholder="Your department">
+          </div>
+          <div class="form-group">
+            <label for="level">Level</label>
+            <input type="text" class="form-control" id="level" name="level" placeholder="Your level (e.g., Freshman)">
+          </div>
+          <button type="submit" class="btn btn-primary">Sign Up</button>
+        </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

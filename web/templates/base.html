@@ -1,0 +1,19 @@
+{% load django_bootstrap5 %} 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}RoomieMatch{% endblock %}</title>
+  <!-- Load Bootstrap CSS and JS here -->
+  {# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+</head>
+<body>
+  {% block content %}
+  {% endblock %}
+  <!-- Load Bootstrap JS and any other scripts here -->
+</body>
+</html>
