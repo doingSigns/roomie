@@ -1,17 +1,16 @@
+from django.contrib.auth.models import User 
 from django.db import models
 
 # Create your models here.
-#from django.db import models
-
+'''
 class User(models.Model):
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=128)
     status = models.CharField(max_length=20)
+'''
 
 class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50)
     department = models.CharField(max_length=100)
     level = models.IntegerField()
 
