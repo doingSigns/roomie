@@ -128,6 +128,9 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# Redirect login requests to our custom page 
+LOGIN_URL = '/web/login/'
+
 # Specify where to redircet users after successful login 
 LOGIN_REDIRECT_URL = '/web/dashboard/'
 
