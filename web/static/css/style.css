@@ -1,0 +1,11 @@
+nav .navbar a{
+    color: #fff;
+}
+
+.img-300{
+    max-width: 300px;
+    overflow: hidden;
+}
+.header-box{
+    max-width: 400px;
+}

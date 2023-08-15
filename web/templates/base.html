@@ -1,43 +1,63 @@
 {% load django_bootstrap5 %} 
-
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{% block title %}RoomieMatch{% endblock %}</title>
+
   <!-- Load Bootstrap CSS and JS here -->
   {# Load CSS and JavaScript #}
-{% bootstrap_css %}
-{% bootstrap_javascript %}
+  {% bootstrap_css %}
+  {% bootstrap_javascript %}
+  <link href="{% static "css/style.css" %}" rel="stylesheet">
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">RoomieMatch</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="#">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">About</a>
-        </li>
-        <li class="nav-item">
-          <!-- a class="nav-link" href="#">Contact</a -->
-          <a class="nav-link" href="{% url 'web:login' %}">Login</a>
-        </li>
-        <li class="nav-item">
-        <a class="nav-link" href="{% url 'web:logout' %}">Logout</a>
-        </li>
-      </ul>
+  
+  <nav class="navbar navbar-expand-lg bg-primary text-white">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        Roomie
+      </a>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">About</a>
+          </li>
+         
+          {% if user.is_authenticated %}
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#">Logout</a></li>
+                  <li><a class="dropdown-item" href="#">Another action</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="#">Something else here</a></li>
+                </ul>
+              </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="#">Login</a>
+          </li>
+          <button class="nav-item text-dark bg-white">
+            <a class="nav-link" href="#">Sign Up</a>
+          </button>
+          {% endif %}
+        </ul>
+       
+      </div>
     </div>
   </nav>
   {% block content %}
   {% endblock %}
   <!-- Load Bootstrap JS and any other scripts here -->
+
+
 </body>
 </html>
