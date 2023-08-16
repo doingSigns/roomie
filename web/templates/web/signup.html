@@ -1,9 +1,30 @@
 {% extends 'base.html' %}
+{% load django_bootstrap5 %}
 
 {% block content %}
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Sign up</button>
-  </form>
-  {% endblock %}
+<div class="container d-flex flex-column justify-content-center mt-5">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="login-text-box d-flex align-items-center bg-primary">
+        <div class="text">
+          <h4>Looking for a <br /> room or a <br />roommate</h4>
+        </div>
+        <div class="title order-md-last">
+            <h4>Sign up</h4>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 d-flex flex-column justify-content-center">
+      <form method="post">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <div class="d-grid">
+          <button id="submit" type="submit" class="btn btn-primary">Sign Up</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</div>
+  
+{% endblock %}

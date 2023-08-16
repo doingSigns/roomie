@@ -4,13 +4,25 @@ from django import forms
 
 
 class StudentSignUpForm(forms.Form):
-    username = forms.CharField()
-    first_name = forms.CharField()
-    last_name = forms.CharField()
-    email = forms.EmailField()
-    password = forms.CharField(widget=forms.PasswordInput)
-    department = forms.CharField()
-    level = forms.CharField()
+    def __init__(self, *args, **kwargs):
+        super(StudentSignUpForm, self).__init__(*args, **kwargs)
+        
+        for key, field in self.fields.items():
+            field.label = ""
+            
+    username = forms.CharField(widget=forms.TextInput(
+    attrs={'placeholder': 'Username'}))
+    first_name = forms.CharField(widget=forms.TextInput(
+    attrs={'placeholder': 'First Name'}))
+    last_name = forms.CharField(widget=forms.TextInput(
+    attrs={'placeholder': 'Last Name'}))
+    email = forms.EmailField(widget=forms.EmailInput(
+    attrs={'placeholder': 'Email'}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Password'}))
+    department = forms.CharField(widget=forms.TextInput(
+    attrs={'placeholder': 'Department'}))
+    level = forms.CharField(widget=forms.TextInput(
+    attrs={'placeholder': 'Level'}))
     
   
 class UserLoginForm(AuthenticationForm):
