@@ -7,6 +7,10 @@ body{
 .rm-text-primary{
     color: #0c347f;
 }
+.rm-primary-gradient{
+    background: linear-gradient(89.92deg, #0C347F -1.88%, rgba(29, 79, 173, 0.963568) 42.78%, rgba(15, 53, 127, 0.91) 108.46%);
+
+}
 .btn-primary{
     background-color: #0c347f;
 }
