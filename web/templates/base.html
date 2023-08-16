@@ -19,9 +19,9 @@
 </head>
 <body>
   <div>
-  <nav class="navbar navbar-expand-lg bg-primary text-white">
+  <nav class="roomie-nav navbar navbar-expand-lg rm-primary text-white">
     <div class="container">
-      <a class="navbar-brand" href="#">
+      <a class="navbar-brand text-white" href="#">
         Roomie
       </a>
       <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -47,7 +47,7 @@
           <li class="nav-item">
             <a class="nav-link" href="{% url 'web:login' %}">Login</a>
           </li>
-          <button class="nav-item text-dark bg-white">
+          <button class="nav-item text-dark bg-white border-0 rounded-2">
             <a class="nav-link" href="{% url 'web:signup' %}">Sign Up</a>
           </button>
           {% endif %}
@@ -63,10 +63,10 @@
 <footer class="mt-5">
 <div class="container footer">
     <div class="row align-items-center">
-      <div class="col-md-6 social-icon d-flex flex-column align-items-center">
-        <h4 class="fw-bold">Roomie</h4>
-        <ul class="list-unstyled">
-          <li><a href="#"><i class="fab fa-facebook-f social-icons"></i></a></li>
+      <div class="col-md-6 social-icon d-flex flex-column align-items-start">
+        <h4 class="fw-bold align-middle">Roomie</h4>
+        <ul class="list-unstyled float-start">
+          <li class="pl-0"><a href="#"><i class="fab fa-facebook-f social-icons"></i></a></li>
           <li><a href="#"><i class="fab fa-twitter social-icons"></i></a></li>
           <li><a href="#"><i class="fab fa-instagram social-icons"></i></a></li>
         </ul>
@@ -82,12 +82,12 @@
       </div>
     </div>
 </div>
-<div class="container mt-5 mb-5">
+<div class="container mt-5 mb-5 base-footer">
   <div class="row">
     <div class="d-flex flex-row">
-      <small>&copy; 2023 Roomie. All rights reserved</small>
-      <small class="pl-2"><a href="#">Privacy Policy</a></small>
-      <small class="pl-2"><a href="#">Terms and condition</a></small>
+      <small class="flex-fill">&copy; 2023 Roomie. All rights reserved</small>
+      <small class="pl-2 flex-fill"><a href="#">Privacy Policy</a></small>
+      <small class="pl-2 flex-fill"><a href="#">Terms and condition</a></small>
     </div>
   </div>
 </div>

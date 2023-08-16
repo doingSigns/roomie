@@ -1,6 +1,18 @@
 body{
     font-family: 'Open Sans', sans-serif;
 }
+.rm-primary{
+    background-color: #0c347f;
+}
+.rm-text-primary{
+    color: #0c347f;
+}
+.btn-primary{
+    background-color: #0c347f;
+}
+a{
+    text-decoration:none;
+}
 nav .navbar a{
     color: #fff;
 }
@@ -20,6 +32,9 @@ nav .navbar a{
     color: #fff;
     border:1px solid #fff;
 }
+.header-box p{
+    line-height: 1.5em;
+}
 .footer ul {
     list-style: none;
     padding-left: 0;
@@ -35,9 +50,34 @@ nav .navbar a{
 }
 .login-text-box{
     min-height: 50vh;
-    padding: 20px;
+    padding: 20px 0 20px 20px;
 }
 .login-text-box .text{
     color: #fff;
 }
 
+.login-nav ul li a.active{
+    background-color: #fff;
+    padding: 5px 10px 5px 5px;
+    border: 0;
+    color: #0c347f;
+    text-decoration: none;
+}
+
+.login-nav ul li a{
+    color: #fff;
+    text-decoration: none;
+}
+.social-icon ul li:first-child {
+    padding-left: 0px;
+
+}
+.base-footer small a{
+    color: #383030;
+}
+.roomie-nav .navbar-nav li a{
+    color: #fff;
+}
+.roomie-nav .navbar-nav li a.active{
+    color: #fff;
+}
