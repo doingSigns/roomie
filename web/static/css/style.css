@@ -1,7 +1,12 @@
+body{
+    font-family: 'Open Sans', sans-serif;
+}
 nav .navbar a{
     color: #fff;
 }
-
+.card-img-top {
+    max-width: 20%;
+}
 .img-300{
     max-width: 300px;
     overflow: hidden;
@@ -9,3 +14,30 @@ nav .navbar a{
 .header-box{
     max-width: 400px;
 }
+
+.card{
+    background-color: transparent;
+    color: #fff;
+    border:1px solid #fff;
+}
+.footer ul {
+    list-style: none;
+    padding-left: 0;
+}
+.social-icon ul li {
+    margin-bottom: 10px;
+    padding: 15px;
+    display: inline;
+}
+.social-icon ul li a {
+    color: #635f5f;
+    text-decoration: none;
+}
+.login-text-box{
+    min-height: 50vh;
+    padding: 20px;
+}
+.login-text-box .text{
+    color: #fff;
+}
+

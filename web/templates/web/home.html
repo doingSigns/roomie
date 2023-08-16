@@ -25,7 +25,7 @@
               <img src="{% static 'img/banner-1.jpg' %}" class="img-300 img-fluid rounded d-block" alt="...">
             </div>
             <div class="col-md-6 mb-3">
-              <img src="{% static 'img/banner-2.jpg' %}" class="img-300 rounded img-fluid ml-5 d-block" alt="...">
+              <img src="{% static 'img/banner-2.jpg' %}" class="img-300 rounded img-fluid" alt="...">
             </div>
         </div>
         <div class="row">
@@ -39,4 +39,38 @@
   </div>
   
 </div> 
+<div class="container mt-5 p-5 bg-primary">
+  <h2 class="text-center">Latest Reviews</h2>
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+   
+    <div class="col">
+      <div class="card h-100 p-3">
+        <img src="{% static 'img/avatar.png' %}" class="card-img-top mx-auto" alt="...">
+        <div class="card-body mx-auto">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card h-100 p-3">
+        <img src="{% static 'img/avatar.png' %}" class="card-img-top mx-auto" alt="...">
+        <div class="card-body mx-auto">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card h-100 p-3">
+        <img src="{% static 'img/avatar.png' %}" class="card-img-top mx-auto" alt="...">
+        <div class="card-body mx-auto">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 {% endblock %}
