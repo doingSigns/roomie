@@ -1,5 +1,10 @@
+
+*{
+    margin: 0;
+    padding: 0;
+}
 body{
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Sofia Sans', sans-serif;
 }
 .rm-primary{
     background-color: #0c347f;
@@ -10,6 +15,13 @@ body{
 .rm-primary-gradient{
     background: linear-gradient(89.92deg, #0C347F -1.88%, rgba(29, 79, 173, 0.963568) 42.78%, rgba(15, 53, 127, 0.91) 108.46%);
 
+}
+.rm-card-img{
+    background-color:#fff;
+    max-width: 40px;
+    max-height: 40px;
+    border-radius: 50%;
+    padding: 5px;
 }
 .btn-primary{
     background-color: #0c347f;
@@ -85,3 +97,45 @@ nav .navbar a{
 .roomie-nav .navbar-nav li a.active{
     color: #fff;
 }
+
+/* Rating Style */
+
+.rate {
+    float: left;
+    height: 20x;
+    padding: 0 10px;
+}
+.rate:not(:checked) > input {
+    position:absolute;
+    top:-9999px;
+}
+.rate:not(:checked) > label:before {
+    content: '★ ';
+    color: #FFA337;
+}
+.rate:not(:checked) > label {
+    float:left;
+    width:1em;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:pointer;
+    font-size:30px;
+    color:#ccc;
+}
+.rate > input:checked ~ label {
+    color: #FFA337;
+    ;    
+}
+ .rate:not(:checked) > label:hover,
+.rate:not(:checked) > label:hover ~ label {
+    color: #fff;  
+}
+/*
+.rate > input:checked + label:hover,
+.rate > input:checked + label:hover ~ label,
+.rate > input:checked ~ label:hover,
+.rate > input:checked ~ label:hover ~ label,
+.rate > label:hover ~ input:checked ~ label {
+    color: #c59b08;
+} */
+

@@ -15,7 +15,7 @@
         <h1 class="rm-text-primary">Looking for a room <br/>or a rooomate?</h1>
         <p>RoomieMatch is a platform that helps university students find their ideal roommates. Whether you're looking for someone who shares your study habits or enjoys the same hobbies, RoomieMatch makes roommate selection easy and stress-free.</p>
 
-        <button type="button" class="btn btn-primary">Register</button>
+        <a href="{% url 'web:signup' %}"><button type="button" class="btn btn-primary">Register</button></a>
       </div>
     </div>
     <div class="banner">
@@ -37,34 +37,73 @@
   </div>
   
 </div> 
-<div class="container mt-5 p-5 rm-primary-gradient">
+<div class="container mt-5 mb-5 p-5 rm-primary-gradient">
   <h2 class="text-center text-white">Latest Reviews</h2>
   <div class="row row-cols-1 row-cols-md-3 g-4">
    
     <div class="col">
       <div class="card h-100 p-3">
-        <img src="{% static 'img/avatar.png' %}" class="card-img-top mx-auto" alt="...">
+        <img src="{% static 'img/Person.png' %}" class="mx-auto rm-card-img" alt="...">
+        <small class="mx-auto">John</small>
+        <h5 class="mx-auto">ATU</h5>
+        <div class="rate d-block">
+          <input type="radio" id="star5" name="rate" value="5" />
+          <label for="star5" title="text">5 stars</label>
+          <input type="radio" id="star4" name="rate" value="4" />
+          <label for="star4" title="text">4 stars</label>
+          <input type="radio" id="star3" name="rate" value="3" />
+          <label for="star3" title="text">3 stars</label>
+          <input type="radio" id="star2" name="rate" value="2" />
+          <label for="star2" title="text">2 stars</label>
+          <input type="radio" id="star1" name="rate" value="1" checked="false" />
+        
+        </div>
         <div class="card-body mx-auto">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+          <p class="card-text">Love this app! I'm an international student and was worried about finding a compatible roommate. Roomie Match connected me with someone who had similar study habits and we get along great..</p>
         </div>
       </div>
     </div>
     <div class="col">
       <div class="card h-100 p-3">
-        <img src="{% static 'img/avatar.png' %}" class="card-img-top mx-auto" alt="...">
+        <img src="{% static 'img/Person.png' %}" class="mx-auto rm-card-img" alt="...">
+        <small class="mx-auto">Cindy</small>
+        <h5 class="mx-auto">Covenant</h5>
+        <div class="rate d-block">
+          <input type="radio" id="star5" name="rate" value="5" />
+          <label for="star5" title="text">5 stars</label>
+          <input type="radio" id="star4" name="rate" value="4" />
+          <label for="star4" title="text">4 stars</label>
+          <input type="radio" id="star3" name="rate" value="3" />
+          <label for="star3" title="text">3 stars</label>
+          <input type="radio" id="star2" name="rate" value="2" />
+          <label for="star2" title="text">2 stars</label>
+          <input type="radio" id="star1" name="rate" value="1" />
+          <label for="star1" title="text">1 star</label>
+        </div>
         <div class="card-body mx-auto">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+          <p class="card-text">I was skeptical at first, but it connected me with a roommate who shares my passion for healthy cooking. We've become great friends, and our apartment feels like home.</p>
         </div>
       </div>
     </div>
     <div class="col">
       <div class="card h-100 p-3">
-        <img src="{% static 'img/avatar.png' %}" class="card-img-top mx-auto" alt="...">
+        <img src="{% static 'img/person.png' %}" class="mx-auto rm-card-img" alt="...">
+        <small class="mx-auto">James</small>
+        <h5 class="mx-auto">Teeside</h5>
+        <div class="rate d-block">
+          <input type="radio" id="star5" name="rate" value="5" />
+          <label for="star5" title="text">5 stars</label>
+          <input type="radio" id="star4" name="rate" value="4" />
+          <label for="star4" title="text">4 stars</label>
+          <input type="radio" id="star3" name="rate" value="3" />
+          <label for="star3" title="text">3 stars</label>
+          <input type="radio" id="star2" name="rate" value="2" />
+          <label for="star2" title="text">2 stars</label>
+          <input type="radio" id="star1" name="rate" value="1" />
+          <label for="star1" title="text">1 star</label>
+        </div>
         <div class="card-body mx-auto">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
+          <p class="card-text">Found an awesome roommate through this app! We both love gaming and have similar schedules. The app made it easy to connect, and we've been living together for six months now. </p>
         </div>
       </div>
     </div>
