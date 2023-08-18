@@ -1,7 +1,7 @@
 from django.contrib.auth.forms import AuthenticationForm,UsernameField
 
 from django import forms
-
+from .models import PreferenceOption, Student 
 
 class StudentSignUpForm(forms.Form):
     def __init__(self, *args, **kwargs):
@@ -38,5 +38,13 @@ class UserLoginForm(AuthenticationForm):
     password = forms.CharField(widget=forms.PasswordInput(attrs={
             'placeholder': 'Password',
         }))
-    
-   
+
+class PreferenceForm(forms.ModelForm):
+    preferences = forms.ModelMultipleChoiceField(
+        queryset=PreferenceOption.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+    )
+
+    class Meta:
+        model = Student  # Use the Student model, not Preference
+        fields = ['preferences']

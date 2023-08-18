@@ -7,9 +7,11 @@ from django.contrib.auth.decorators import login_required
 
 from django.core.exceptions import ValidationError 
 
-from .forms import StudentSignUpForm
+from .models import Student, Preference, PreferenceOption
 
-from .models import Student
+from .forms import StudentSignUpForm 
+from .forms import PreferenceForm
+
 
 # Create your views here.
 def home(request):
@@ -50,6 +52,45 @@ def signup(request):
 
 @login_required
 def dashboard(request):
-    # Your view logic here
-    return render(request, 'web/dashboard.html')
- 
+    user = request.user
+
+    try:
+        student = Student.objects.get(user=user)
+        if student.preferences.exists():
+            # Render the dashboard with the user's preferences
+            return render(request, 'web/dashboard.html', {'preferences': student.preferences})
+        else:
+            # Redirect to the preference form
+            return redirect('web:preference_form')
+    except Student.DoesNotExist:
+        # Redirect to the preference form
+        return redirect('web:preference_form')
+
+'''
+@login_required
+def preference_form(request):
+    if request.method == 'POST':
+        form = PreferenceForm(request.POST)
+        if form.is_valid():
+            preferences = form.save(commit=False)
+            preferences.user = request.user
+            preferences.save()
+            return redirect('dashboard')  # Redirect to dashboard after saving preferences
+    else:
+        form = PreferenceForm()
+    
+    return render(request, 'web/preference_form.html', {'form': form})
+''' 
+@login_required
+def preference_form(request):
+    student = Student.objects.get(user=request.user)
+
+    if request.method == 'POST':
+        form = PreferenceForm(request.POST, instance=student)
+        if form.is_valid():
+            form.save()  # Save the student instance along with the selected preferences
+            return redirect('web:dashboard')  # Redirect to dashboard after saving preferences
+    else:
+        form = PreferenceForm(instance=student)
+
+    return render(request, 'web/preference_form.html', {'form': form})
