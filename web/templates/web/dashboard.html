@@ -3,4 +3,39 @@
 {% block content %}
 <!-- After login users are directed here -->
 
+<div class="container">
+    <div class="row mt-4">
+        <div class="col-md-8">
+            <h2>Your Dashboard</h2>
+            <div class="card">
+              <div class="card-header">
+                Your Matches
+              </div>
+              <div class="card-body">
+                <ul class="list-group">
+                  {% for match in matches %}
+                    <li class="list-group-item">{{ match.match_to_student.user.get_full_name }} - {{ match.get_match_status_display }}</li>
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+          </div>
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-header">
+            Your Preferences
+          </div>
+          <div class="card-body">
+            <ul class="list-group">
+              {% for preference in preferences %}
+                <li class="list-group-item">{{ preference }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
 {% endblock %}

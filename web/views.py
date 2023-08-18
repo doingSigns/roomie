@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 
 from django.core.exceptions import ValidationError 
 
-from .models import Student, Preference, PreferenceOption
+from .models import Student, Preference, PreferenceOption, Match
 
 from .forms import StudentSignUpForm 
 from .forms import PreferenceForm
@@ -58,7 +58,10 @@ def dashboard(request):
         student = Student.objects.get(user=user)
         if student.preferences.exists():
             # Render the dashboard with the user's preferences
-            return render(request, 'web/dashboard.html', {'preferences': student.preferences})
+            preferences = student.preferences.all()
+            matches = Match.objects.filter(match_student=student)
+            return render(request, 'web/dashboard.html', {'preferences': preferences, 'matches': matches})
+        
         else:
             # Redirect to the preference form
             return redirect('web:preference_form')
