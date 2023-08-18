@@ -12,6 +12,7 @@ from .models import Student, Preference, PreferenceOption, Match
 from .forms import StudentSignUpForm 
 from .forms import PreferenceForm
 
+from .matching_algorithm import stable_matching 
 
 # Create your views here.
 def home(request):
@@ -97,3 +98,9 @@ def preference_form(request):
         form = PreferenceForm(instance=student)
 
     return render(request, 'web/preference_form.html', {'form': form})
+
+def matches(request):
+    
+    stable_matching()
+
+    return redirect('/') 
