@@ -1,5 +1,6 @@
 from django.contrib.auth import login
-from django.contrib.auth.models import User 
+from django.contrib.auth.models import User
+from django.http import HttpResponse 
 
 from django.shortcuts import render, redirect 
 
@@ -101,6 +102,11 @@ def preference_form(request):
 
 def matches(request):
     
-    stable_matching()
+    matches = stable_matching()
 
-    return redirect('/') 
+    #return redirect('/') 
+    #return HttpResponse("Stable matching process executed.")
+    # Debugging: Print the matches dictionary
+    print("Matches:") 
+    for student, match in matches.items(): 
+            print(student, match)
