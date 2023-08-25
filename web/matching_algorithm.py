@@ -1,34 +1,73 @@
-from django.utils.timezone import now as datetime_now
-from .models import Student, Preference, PreferenceOption, Match
+from datetime import datetime 
+from django.db.models import Q
+from .models import Student, Match
 
-def stable_matching():
-    # Get all students
-    students = Student.objects.all()
+from collections import defaultdict
 
-    # Create a dictionary to store the preferences of each preference option
-    preferences = {preference_option: list(Student.objects.filter(preferences=preference_option)) for preference_option in PreferenceOption.objects.all()}
-
-    # Create a dictionary to store the current matches
-    matches = {student: None for student in students}
-
-    while any(matches[student] is None for student in students):
-        student = next(student for student in students if matches[student] is None)
-
-        # Get the top preference for this student
-        top_preference = preferences[student.preferences.all()[0]][0]
-
-        if matches[top_preference] is None:
-            matches[student] = top_preference
-            matches[top_preference] = student
-        else:
-            current_match = matches[top_preference]
-
-            if preferences[top_preference].index(student) < preferences[top_preference].index(current_match):
-                matches[student] = top_preference
-                matches[top_preference] = student
-                matches[current_match] = None
-            else:
-                # Remove the top preference from the current student's preferences
-                preferences[student.preferences.all()[0]].remove(top_preference)
+def match_students(students):
+    """
+    Matches students based on their shared preferences.
+    
+    Args:
+        students (list of Student): List of student objects.
         
-    return matches
+    Returns:
+        dict: A dictionary where keys are matched student pairs and values are their shared preferences.
+    """
+    # Create a dictionary to store preferences for each student
+    student_preferences = defaultdict(list)
+    
+    # Populate student_preferences dictionary
+    for student in students:
+        for preference_option in student.preferences.all():
+            student_preferences[student].append(preference_option)
+    
+    # Create a dictionary to store matched student pairs and their shared preferences
+    matched_pairs = {}
+    
+    # Iterate through student_preferences dictionary to find matches
+    for student1, preferences1 in student_preferences.items():
+        for student2, preferences2 in student_preferences.items():
+            if student1 != student2:
+                shared_preferences = set(preferences1) & set(preferences2)
+                if shared_preferences:
+                    matched_pairs[(student1, student2)] = shared_preferences
+
+# Persist matched pairs into the database
+    for matched_pair, shared_preferences in matched_pairs.items():
+        student1, student2 = matched_pair
+        
+        # Check if a match between these students already exists
+        existing_match = Match.objects.filter(
+            (Q(match_student=student1) & Q(match_to_student=student2)) |
+            (Q(match_student=student2) & Q(match_to_student=student1))
+        ).first()
+        
+        if not existing_match:
+            # Create Match instances for both directions
+            match1 = Match.objects.create(
+                match_student=student1,
+                match_to_student=student2,
+                match_date=datetime.now(),
+                match_status='pending'
+            )
+            match2 = Match.objects.create(
+                match_student=student2,
+                match_to_student=student1,
+                match_date=datetime.now(),
+                match_status='pending'
+            )
+            
+            # ... (add shared_preferences to the Match instances)
+    
+    return matched_pairs 
+
+
+def get_matched_students():
+    # Get all students from the database
+    all_students = Student.objects.all()
+    
+    # Use the matching algorithm to find matched student pairs
+    matched_pairs = match_students(all_students)
+    
+    return matched_pairs

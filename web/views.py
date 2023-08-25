@@ -13,7 +13,7 @@ from .models import Student, Preference, PreferenceOption, Match
 from .forms import StudentSignUpForm 
 from .forms import PreferenceForm
 
-from .matching_algorithm import stable_matching 
+from .matching_algorithm import get_matched_students
 
 # Create your views here.
 def home(request):
@@ -102,11 +102,18 @@ def preference_form(request):
 
 def matches(request):
     
-    matches = stable_matching()
+#    matches = stable_matching()
+
+    matches = get_matched_students()
 
     #return redirect('/') 
     #return HttpResponse("Stable matching process executed.")
     # Debugging: Print the matches dictionary
+
+    '''    
     print("Matches:") 
     for student, match in matches.items(): 
             print(student, match)
+    '''
+    
+    return render(request, 'web/matches.html', {'matches': matches})
