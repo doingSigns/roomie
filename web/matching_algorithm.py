@@ -22,16 +22,30 @@ def match_students(students):
         for preference_option in student.preferences.all():
             student_preferences[student].append(preference_option)
     
-    # Create a dictionary to store matched student pairs and their shared preferences
+ # Create a dictionary to store matched student pairs and their shared preferences
     matched_pairs = {}
+    
+    # Create a set to keep track of matched students
+    matched_students = set()
+    
+    # Create a dictionary to store the current matches for each student
+    current_matches = {}
     
     # Iterate through student_preferences dictionary to find matches
     for student1, preferences1 in student_preferences.items():
         for student2, preferences2 in student_preferences.items():
-            if student1 != student2:
+            if student1 != student2 and student1 not in matched_students and student2 not in matched_students:
                 shared_preferences = set(preferences1) & set(preferences2)
                 if shared_preferences:
-                    matched_pairs[(student1, student2)] = shared_preferences
+                    if student2 not in current_matches or shared_preferences > current_matches[student2][1]:
+                        # Update student1's match to student2
+                        if student1 in current_matches:
+                            matched_students.remove(current_matches[student1][0])
+                        current_matches[student1] = (student2, shared_preferences)
+                        matched_students.add(student2)
+                        
+                        # Add the match to the matched_pairs dictionary
+                        matched_pairs[(student1, student2)] = shared_preferences
 
 # Persist matched pairs into the database
     for matched_pair, shared_preferences in matched_pairs.items():
