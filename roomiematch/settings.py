@@ -149,3 +149,6 @@ LOGIN_REDIRECT_URL = '/web/dashboard/'
 
 # Specify where to redirect users after they logout of the system 
 LOGOUT_REDIRECT_URL = '/'
+
+MEDIA_URL = 'media/'
+MEDIA_ROOT = BASE_DIR / 'media'

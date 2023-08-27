@@ -1,0 +1,64 @@
+{% extends 'base.html' %} {% load django_bootstrap5 %} {% block content %}
+<div class="container d-flex flex-column justify-content-center mt-5">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="login-text-box d-flex align-items-center rm-primary-gradient">
+        <div class="text flex-fill">
+          <h4>List Rooms</h4>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Room Type</th>
+            <th scope="col">Address</th>
+            <th scope="col">Room Capacity</th>
+            <th scope="col">Date Created</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {% for room in rooms %}
+          <tr>
+            <th scope="row">
+              <a href="{% url 'web:room_detail' room.pk %}">
+                <img
+                  src="{{ room.room_photo.url }}"
+                  class="mx-auto img-thumbnail"
+                  alt="..."
+                />
+              </a>
+            </th>
+            <td>{{ room.room_type }}</td>
+            <td>{{ room.room_address }}</td>
+            <td>{{ room.room_capacity }}</td>
+            <td>{{ room.created_at }}</td>
+            <td>
+              <div class="btn-group">
+                <a
+                  href="{% url 'web:room_update' pk=room.pk %}"
+                  class="btn btn-sm btn-outline-primary"
+                >
+                  <i class="fas fa-edit"></i>
+                </a>
+                <a
+                  href="{% url 'web:room_delete' pk=room.pk %}"
+                  class="btn btn-sm btn-outline-danger"
+                >
+                  <i class="fas fa-trash"></i>
+                </a>
+              </div>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

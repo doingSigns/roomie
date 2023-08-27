@@ -2,15 +2,16 @@ from django.contrib.auth import login
 from django.contrib.auth.models import User
 from django.http import HttpResponse 
 
-from django.shortcuts import render, redirect 
+from django.shortcuts import render,get_object_or_404, redirect 
 
 from django.contrib.auth.decorators import login_required 
 
 from django.core.exceptions import ValidationError 
 
-from .models import Student, Preference, PreferenceOption, Match
+from .models import Student, Preference, PreferenceOption, Match,Room
 
 from .forms import StudentSignUpForm 
+from .forms import RoomForm 
 from .forms import PreferenceForm
 
 from .matching_algorithm import get_matched_students
@@ -51,6 +52,58 @@ def signup(request):
         form = StudentSignUpForm()
     
     return render(request, 'web/signup.html', {'form': form})
+
+@login_required
+def room_list(request):
+    student = request.user.student
+    rooms = Room.objects.filter(student=student)
+    return render(request, 'web/room_list.html', {'rooms': rooms})
+
+@login_required
+def room_detail(request, pk):
+    room = get_object_or_404(Room, pk=pk)
+    return render(request, 'web/room_detail.html', {'room': room})
+
+@login_required
+def room_create(request):
+    if request.method == 'POST':
+        form = RoomForm(request.POST,request.FILES)
+        if form.is_valid():
+            student_instance = Student.objects.get_or_create(user=request.user)[0]
+            room= Room(
+                room_type=form.cleaned_data['room_type'],
+                room_address=form.cleaned_data['room_address'],
+                room_capacity=form.cleaned_data['room_capacity'],
+                room_photo=form.cleaned_data['room_photo'],
+                student=student_instance
+            )
+            room.save()
+            # form.save()
+            return redirect('web:room_list')
+    else:
+        form = RoomForm()
+    
+    return render(request, 'web/rooms_form.html', {'form': form})
+
+@login_required
+def room_update(request, pk):
+    room = get_object_or_404(Room, pk=pk)
+    if request.method == 'POST':
+        form = RoomForm(request.POST, instance=room)
+        if form.is_valid():
+            form.save()
+            return redirect('web:room_list')
+    else:
+        form = RoomForm(instance=room)
+    return render(request, 'web/rooms_form.html', {'form': form})
+
+@login_required
+def room_delete(request, pk):
+    room = get_object_or_404(Room, pk=pk)
+    if request.method == 'POST':
+        room.delete()
+        return redirect('web:room_list')
+    return render(request, 'web/room_confirm_delete.html', {'room': room})
 
 @login_required
 def dashboard(request):

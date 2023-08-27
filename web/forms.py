@@ -1,14 +1,14 @@
 from django.contrib.auth.forms import AuthenticationForm,UsernameField
-
 from django import forms
-from .models import PreferenceOption, Student 
+from .models import PreferenceOption, Student, Room
 
 class StudentSignUpForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super(StudentSignUpForm, self).__init__(*args, **kwargs)
         
         for key, field in self.fields.items():
-            field.label = ""
+            if key != 'level':  # Exclude 'level' field
+                field.label = ""
             
     username = forms.CharField(widget=forms.TextInput(
     attrs={'placeholder': 'Username'}))
@@ -21,8 +21,7 @@ class StudentSignUpForm(forms.Form):
     password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Password'}))
     department = forms.CharField(widget=forms.TextInput(
     attrs={'placeholder': 'Department'}))
-    level = forms.CharField(widget=forms.TextInput(
-    attrs={'placeholder': 'Level'}))
+    level = forms.ChoiceField(choices=Student.STUDENT_LEVEL,widget=forms.Select,label='Level')
     
   
 class UserLoginForm(AuthenticationForm):
@@ -38,6 +37,31 @@ class UserLoginForm(AuthenticationForm):
     password = forms.CharField(widget=forms.PasswordInput(attrs={
             'placeholder': 'Password',
         }))
+    
+class RoomForm(forms.ModelForm):
+    def __init__(self, *args,student=None, **kwargs):
+        self.student=student
+        super(RoomForm, self).__init__(*args, **kwargs)
+                    
+    room_type = forms.ChoiceField(choices=Room.ROOM_TYPES, required=True,widget=forms.Select, label="Room Type")
+        
+    room_address = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Room Address'}), label='Room Address')
+        
+    room_capacity = forms.IntegerField(widget=forms.NumberInput,label='Room Capacity')
+        
+    room_photo = forms.ImageField(widget=forms.FileInput,label='Room Photo')
+    
+    class Meta:
+        model = Room
+        fields = '__all__'
+        
+    # def save(self, commit=True, user=None):
+    #     room = super().save(commit=False)
+    #     if user:
+    #         room.student = user
+    #     if commit:
+    #         room.save()
+    #     return room
 
 class PreferenceForm(forms.ModelForm):
     preferences = forms.ModelMultipleChoiceField(

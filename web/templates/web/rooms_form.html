@@ -1,0 +1,29 @@
+{% extends 'base.html' %} {% load django_bootstrap5 %} {% block content %}
+<div class="container d-flex flex-column justify-content-center mt-5">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="login-text-box d-flex align-items-center rm-primary-gradient">
+        <div class="text flex-fill">
+          <h4>Add New Rooms</h4>
+        </div>
+        <div class="login-nav flex-fill">
+          <ul class="list-unstyled float-end">
+            <li class="pt-2"><a class="active">Add New Rooms</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 d-flex flex-column justify-content-center">
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %} {% bootstrap_form form %}
+        <div class="d-grid">
+          <button id="submit" type="submit" class="btn btn-primary">
+            Submit
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
