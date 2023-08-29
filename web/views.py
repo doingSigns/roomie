@@ -18,6 +18,9 @@ from .matching_algorithm import get_matched_students
 
 # Create your views here.
 def home(request):
+    if request.user.is_authenticated:
+        return redirect('web:dashboard')
+    
     form = StudentSignUpForm() 
     return render(request, 'web/home.html', {'form': form})
 
