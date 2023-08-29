@@ -117,8 +117,20 @@ def dashboard(request):
         if student.preferences.exists():
             # Render the dashboard with the user's preferences
             preferences = student.preferences.all()
-            matches = Match.objects.filter(match_student=student)
-            return render(request, 'web/dashboard.html', {'preferences': preferences, 'matches': matches})
+
+            #Fetch existing matches for the student 
+            matches = Match.objects.filter(match_student=student) 
+
+            available_rooms = {}
+
+            for match in matches:
+                # Retrieve the corresponding room for the match
+                room = Room.objects.filter(student=match.match_to_student, room_status='available').first()
+                if room: 
+                    # Add the matched student as the key and the room as the value to the dictionary
+                    available_rooms[match.match_to_student] = room
+
+            return render(request, 'web/dashboard.html', {'preferences': preferences, 'student': student, 'matches': matches, 'available_rooms': available_rooms})
         
         else:
             # Redirect to the preference form
