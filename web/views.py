@@ -1,6 +1,9 @@
+import pprint
 from django.contrib.auth import login
 from django.contrib.auth.models import User
 from django.http import HttpResponse 
+from django.db import connection
+from django.core.exceptions import ObjectDoesNotExist 
 
 from django.shortcuts import render,get_object_or_404, redirect 
 
@@ -157,16 +160,34 @@ def preference_form(request):
 @login_required
 def preference_form(request):
     student = Student.objects.get(user=request.user)
+    preferences = Preference.objects.all()
 
     if request.method == 'POST':
-        form = PreferenceForm(request.POST, instance=student)
+        form = PreferenceForm(request.POST, preferences=preferences)
         if form.is_valid():
-            form.save()  # Save the student instance along with the selected preferences
+            for preference in preferences:
+                option_id = request.POST.get(f'preference_{preference.id}')
+                selected_option = PreferenceOption.objects.get(id=option_id)
+                save_student_preference(
+                    student.id,
+                    selected_option.id
+                )   
             return redirect('web:dashboard')  # Redirect to dashboard after saving preferences
     else:
-        form = PreferenceForm(instance=student)
+        # preference = Preference.objects.prefetch_related('option_set').all()
+        form = PreferenceForm(preferences=preferences)
 
     return render(request, 'web/preference_form.html', {'form': form})
+
+
+def save_student_preference(student_id, preference_option_id):
+    with connection.cursor() as cursor:
+        query = """
+        INSERT INTO web_student_preferences (student_id, preferenceoption_id)
+        VALUES (%s, %s);
+        """
+        cursor.execute(query, [student_id, preference_option_id])
+        
 
 def matches(request):
     
