@@ -1,81 +1,86 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} 
 {% load django_bootstrap5 %} 
-{% load static %}
-
+{% load static %} 
 {% block content %}
 <!-- After login users are directed here -->
 
 <div class="container">
-    <div class="row mt-4">
-        <div class="col-md-8">
-          <h2>Welcome, {{ student.user.get_full_name }}!</h2>
-            <div class="card">
-              <div class="card-header">
-                Your Matches
-              </div>
-              <div class="card-body">
-                <ul class="list-group">
-                  {% for match in matches %}
-                  {% if match.match_to_student in available_rooms %}
-                  {% for matched_student, room in available_rooms.items %}
-                    <li class="list-group-item">{{ match.match_to_student.user.get_full_name }} (<a href="{% url 'web:room_detail' room.pk %}">view room</a>)</li>
-
-                    {% endfor %}
-
-                  {% else %}
-                    <li class="list-group-item">{{ match.match_to_student.user.get_full_name }} (Status: Seeking)</li>
-                  {% endif %}
-                {% endfor %}
-                </ul>
-              </div>
-            </div> 
-
-            <!-- Display available rooms for student -->
-            <h2>Available Rooms:</h2>
-            <div class="row">
-              {% if available_rooms %}
+  <div class="row mt-4">
+    <div class="col-md-8">
+      <h2>Welcome, {{ student.user.get_full_name }}!</h2>
+      <div class="card text-dark">
+        <div class="card-header">Your Matches</div>
+        <div class="card-body">
+          <ul class="list-group">
+            {% for match in matches %} 
+              {% if match.match_to_student in available_rooms %} 
                 {% for matched_student, room in available_rooms.items %}
-                  <div class="col-md-6 mb-4">
-                    <div class="card" style="width: 18rem;">
-                      <img src="{{ room.room_photo.url }}" class="card-img-top" alt="Room Photo">
-                      <div class="card-body">
-                        <h5 class="card-title">Room Type: {{ room.room_type }}</h5>
-                        <p class="card-text">
-                          <strong>Room Address:</strong> {{ room.room_address }}<br>
-                          <strong>Room Capacity:</strong> {{ room.room_capacity }}<br>
-                          <strong>Matched Student:</strong> {{ matched_student.user.get_full_name }}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                {% endfor %}
+                  <li class="list-group-item">
+                    {{ match.match_to_student.user.get_full_name }} (<a
+                      href="{% url 'web:room_detail' room.pk %}"
+                      >view room</a
+                    >)
+                  </li>
+                {% endfor %} 
               {% else %}
-                <div class="col">
-                  <p>No available rooms from matched students.</p>
+                <li class="list-group-item">
+                  {{ match.match_to_student.user.get_full_name }} (Status: Seeking)
+                </li>
+              {% endif %} 
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+
+      <!-- Display available rooms for student -->
+      <h2>Available Rooms:</h2>
+      <div class="row">
+        {% if available_rooms %} 
+          {% for matched_student, room in available_rooms.items %}
+            <div class="col-md-6 mb-4">
+              <div class="card" style="width: 18rem">
+                <img
+                  src="{{ room.room_photo.url }}"
+                  class="card-img-top"
+                  alt="Room Photo"
+                />
+                <div class="card-body">
+                  <h5 class="card-title">Room Type: {{ room.room_type }}</h5>
+                  <p class="card-text">
+                    <strong>Room Address:</strong> {{ room.room_address }}<br />
+                    <strong>Room Capacity:</strong> {{ room.room_capacity }}<br />
+                    <strong>Matched Student:</strong> {{
+                    matched_student.user.get_full_name }}
+                  </p>
                 </div>
-              {% endif %}
+              </div>
             </div>
-          </div>
-      <div class="col-md-4">
-        <div class="card">
-          <div class="card-header">
-            Your Preferences
-          </div>
-          <div class="card-body">
-            <ul class="list-group">
-              {% for preference in preferences %}
-                <li class="list-group-item">{{ preference }}</li>
-              {% endfor %}
-            </ul>
-            <p class="centered">
-              {% url 'web:preference_form' as preference_form_url %} 
-              {% bootstrap_button "Manage Your Preferences" button_type="link" button_class="btn-primary" size="lg" href=preference_form_url %}
-            </p>
-          </div>
+          {% endfor %} 
+        {% else %}
+        <div class="col">
+          <p>No available rooms from matched students.</p>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-header text-dark">Your Preferences</div>
+        <div class="card-body">
+          <ul class="list-group">
+            {% for preference in preferences %}
+            <li class="list-group-item">{{ preference }}</li>
+            {% endfor %}
+          </ul>
+          <p class="centered">
+            {% url 'web:preference_form' as preference_form_url %} {%
+            bootstrap_button "Manage Your Preferences" button_type="link"
+            button_class="btn-primary" size="lg" href=preference_form_url %}
+          </p>
         </div>
       </div>
     </div>
   </div>
+</div>
 
-  
 {% endblock %}
