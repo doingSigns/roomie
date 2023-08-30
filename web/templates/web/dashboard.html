@@ -38,7 +38,7 @@
         {% if available_rooms %} 
           {% for matched_student, room in available_rooms.items %}
             <div class="col-md-6 mb-4">
-              <div class="card" style="width: 18rem">
+              <div class="card text-dark" style="width: 18rem">
                 <img
                   src="{{ room.room_photo.url }}"
                   class="card-img-top"
@@ -49,8 +49,7 @@
                   <p class="card-text">
                     <strong>Room Address:</strong> {{ room.room_address }}<br />
                     <strong>Room Capacity:</strong> {{ room.room_capacity }}<br />
-                    <strong>Matched Student:</strong> {{
-                    matched_student.user.get_full_name }}
+                    <strong>Room Owner:</strong> {{ matched_student.user.get_full_name }}
                   </p>
                 </div>
               </div>
@@ -73,9 +72,8 @@
             {% endfor %}
           </ul>
           <p class="centered">
-            {% url 'web:preference_form' as preference_form_url %} {%
-            bootstrap_button "Manage Your Preferences" button_type="link"
-            button_class="btn-primary" size="lg" href=preference_form_url %}
+            {% url 'web:preference_form' as preference_form_url %} 
+            {% bootstrap_button "Manage Your Preferences" button_type="link" button_class="btn-primary" size="lg" href=preference_form_url %}
           </p>
         </div>
       </div>
