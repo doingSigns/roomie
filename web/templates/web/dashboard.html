@@ -13,21 +13,21 @@
         <div class="card-body">
           <ul class="list-group">
             {% for match in matches %} 
-              {% if match.match_to_student in available_rooms %} 
-                {% for matched_student, room in available_rooms.items %}
-                  <li class="list-group-item">
-                    {{ match.match_to_student.user.get_full_name }} (<a
-                      href="{% url 'web:room_detail' room.pk %}"
-                      >view room</a
-                    >)
-                  </li>
-                {% endfor %} 
-              {% else %}
+            {% if match.match_to_student in available_rooms %} 
+              {% for matched_student, room in available_rooms.items %}
                 <li class="list-group-item">
-                  {{ match.match_to_student.user.get_full_name }} (Status: Seeking)
+                  {{ match.match_to_student.user.get_full_name }} (<a
+                    href="{% url 'web:room_detail' room.pk %}"
+                    >view room</a
+                  >)
                 </li>
-              {% endif %} 
-            {% endfor %}
+              {% endfor %} 
+            {% else %}
+              <li class="list-group-item">
+                {{ match.match_to_student.user.get_full_name }} (Status: Seeking)
+              </li>
+            {% endif %} 
+          {% endfor %}
           </ul>
         </div>
       </div>

@@ -1,17 +1,10 @@
-{% extends 'base.html' %} {% load django_bootstrap5 %} {% block content %}
-<div class="container-fluid d-flex flex-column rm-primary-gradient">
-  <div class="row">
-    <div class="col-md-5 offset-md-4 mt-5">
-      <h2 class="text-center text-white">Set Your Preferences</h2>
-      <form method="post" class="text-white">
-        {% csrf_token %} {% bootstrap_form form %}
-        <div class="d-grid mb-5">
-          <button id="submit" type="submit" class="btn btn-primary">
-            Save Preferences
-          </button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Set Your Preferences</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save Preferences</button>
+  </form>
 {% endblock %}

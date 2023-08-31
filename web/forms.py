@@ -63,19 +63,13 @@ class RoomForm(forms.ModelForm):
     #         room.save()
     #     return room
 
-class PreferenceForm(forms.Form):
-    def __init__(self, *args, **kwargs):
-        preferences = kwargs.pop('preferences')
-        super(PreferenceForm, self).__init__(*args, **kwargs)
-        
-        for preference in preferences:
-            options = PreferenceOption.objects.filter(preference=preference)
-            self.fields[f'preference_{preference.id}'] = forms.ModelChoiceField(queryset=options, label=preference.name)
-    # preferences = forms.ModelMultipleChoiceField(
-    #     queryset=PreferenceOption.objects.all(),
-    #     widget=forms.CheckboxSelectMultiple,
-    # )
+class PreferenceForm(forms.ModelForm):
+    preferences = forms.ModelMultipleChoiceField(
+        queryset=PreferenceOption.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+    )
 
     class Meta:
         model = Student  # Use the Student model, not Preference
         fields = ['preferences']
+
