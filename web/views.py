@@ -154,6 +154,9 @@ def preference_form(request):
     else:
         form = PreferenceForm(instance=student)
 
+# We trigger the Gale-Shapely algorithm to generate matches 
+    matches = get_matched_students()
+
     return render(request, 'web/preference_form.html', {'form': form})
 
 
