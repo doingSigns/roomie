@@ -19,10 +19,10 @@ class PreferenceOption(models.Model):
 
 class Student(models.Model):
     STUDENT_LEVEL = [
-        ('100', '100'),
-        ('200', '200'),
-        ('300', '300'),
-        ('400', '400'),
+        ('100', 'Year One'),
+        ('200', 'Year Two'),
+        ('300', 'Year Three'),
+        ('400', 'Post Graduate'),
     ]
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     department = models.CharField(max_length=100)

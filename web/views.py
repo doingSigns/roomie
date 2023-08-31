@@ -4,6 +4,8 @@ from django.contrib.auth.models import User
 from django.http import HttpResponse 
 from django.db import connection
 from django.core.exceptions import ObjectDoesNotExist 
+from django.core.mail import send_mail
+
 
 from django.shortcuts import render,get_object_or_404, redirect 
 
@@ -166,3 +168,5 @@ def matches(request):
     matches = get_matched_students()
     
     return render(request, 'web/matches.html', {'matches': matches})
+
+

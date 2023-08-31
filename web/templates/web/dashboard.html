@@ -41,7 +41,7 @@
               <div class="card text-dark" style="width: 18rem">
                 <img
                   src="{{ room.room_photo.url }}"
-                  class="card-img-top"
+                  class="img-fluid"
                   alt="Room Photo"
                 />
                 <div class="card-body">
@@ -51,6 +51,8 @@
                     <strong>Room Capacity:</strong> {{ room.room_capacity }}<br />
                     <strong>Room Owner:</strong> {{ matched_student.user.get_full_name }}
                   </p>
+
+                  <a href="mailto: {{ matched_student.user.email }}" class="btn btn-primary">Send a mail</a>
                 </div>
               </div>
             </div>
