@@ -17,7 +17,7 @@ from .models import Student, Preference, PreferenceOption, Match,Room
 
 from .forms import StudentSignUpForm 
 from .forms import RoomForm 
-from .forms import PreferenceForm
+from .forms import PreferenceForm, PreferenceForm2 
 
 from .matching_algorithm import get_matched_students
 
@@ -161,6 +161,36 @@ def preference_form(request):
 
     return render(request, 'web/preference_form.html', {'form': form})
 
+@login_required
+def preference_form2(request):
+    student = Student.objects.get(user=request.user)
+    preferences = Preference.objects.all()
+
+    if request.method == 'POST':
+        form = PreferenceForm2(request.POST, preferences=preferences)
+        if form.is_valid():
+            for preference in preferences:
+                option_id = request.POST.get(f'preference_{preference.id}')
+                selected_option = PreferenceOption.objects.get(id=option_id)
+                save_student_preference(
+                    student.id,
+                    selected_option.id
+                )   
+            return redirect('web:dashboard')  # Redirect to dashboard after saving preferences
+    else:
+        # preference = Preference.objects.prefetch_related('option_set').all()
+        form = PreferenceForm2(preferences=preferences)
+
+    return render(request, 'web/preference_form2.html', {'form': form})
+
+
+def save_student_preference(student_id, preference_option_id):
+    with connection.cursor() as cursor:
+        query = """
+        INSERT INTO web_student_preferences (student_id, preferenceoption_id)
+        VALUES (%s, %s);
+        """
+        cursor.execute(query, [student_id, preference_option_id])
 
 def matches(request):
 

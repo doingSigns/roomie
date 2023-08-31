@@ -16,6 +16,7 @@ urlpatterns = [
     path('rooms/<int:pk>/edit/', views.room_update, name='room_update'),
     path('rooms/<int:pk>/delete/', views.room_delete, name='room_delete'),
     path('preference/', views.preference_form, name='preference_form'),
+    path('preference2/', views.preference_form2, name='preference_form2'),
     #path('login/', auth_views.LoginView.as_view(template_name='web/registration/login.html'), name='web:login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     # ... other URLs
