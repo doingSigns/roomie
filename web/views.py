@@ -139,10 +139,10 @@ def dashboard(request):
         
         else:
             # Redirect to the preference form
-            return redirect('web:preference_form')
+            return redirect('web:preference_form2')
     except Student.DoesNotExist:
         # Redirect to the preference form
-        return redirect('web:preference_form')
+        return redirect('web:preference_form2')
 
 @login_required
 def preference_form(request):
