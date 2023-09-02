@@ -1,4 +1,3 @@
-import pprint
 from django.contrib.auth import login
 from django.contrib.auth.models import User
 from django.http import HttpResponse 
@@ -157,7 +156,7 @@ def preference_form(request):
         form = PreferenceForm(instance=student)
 
 # We trigger the Gale-Shapely algorithm to generate matches 
-    matches = get_matched_students()
+#    matches = get_matched_students()
 
     return render(request, 'web/preference_form.html', {'form': form})
 
@@ -175,7 +174,9 @@ def preference_form2(request):
                 save_student_preference(
                     student.id,
                     selected_option.id
-                )   
+                )
+            # We trigger the Gale-Shapely algorithm to generate matches 
+            #matches = get_matched_students()   
             return redirect('web:dashboard')  # Redirect to dashboard after saving preferences
     else:
         # preference = Preference.objects.prefetch_related('option_set').all()
@@ -198,5 +199,3 @@ def matches(request):
     matches = get_matched_students()
     
     return render(request, 'web/matches.html', {'matches': matches})
-
-
