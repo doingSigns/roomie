@@ -156,7 +156,7 @@ def preference_form(request):
         form = PreferenceForm(instance=student)
 
 # We trigger the Gale-Shapely algorithm to generate matches 
-#    matches = get_matched_students()
+    matches = get_matched_students()
 
     return render(request, 'web/preference_form.html', {'form': form})
 
@@ -176,7 +176,7 @@ def preference_form2(request):
                     selected_option.id
                 )
             # We trigger the Gale-Shapely algorithm to generate matches 
-            #matches = get_matched_students()   
+            matches = get_matched_students()   
             return redirect('web:dashboard')  # Redirect to dashboard after saving preferences
     else:
         # preference = Preference.objects.prefetch_related('option_set').all()
